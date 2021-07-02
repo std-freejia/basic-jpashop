@@ -12,7 +12,8 @@ public class Order {
     private Long id;
 
     @Column(name="member_id")
-    private Long memberId;
+    private Long memberId; /** 이거 객체지향적 관점에서 어색하다. 관계형 DB에 있는 것을 그대로 가져온 모양.
+    private Member member; // 이래야 될 것 같다.  Order가 Member 객체를 가지고 있어야 자연스럽지 않나. */
 
     private LocalDateTime orderDate; // DB에 timestamp 타입으로 매핑된다.
 
