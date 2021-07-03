@@ -1,6 +1,8 @@
 package jpabook.jpashop.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /** JPA 기본편 실전예제
  * 엔티티 설계와 매핑
@@ -17,6 +19,12 @@ public class Member {
     private String city;
     private String street;
     private String zipcode;
+
+    /** Member의 주문목록.
+     * Member -> Order  관계는 드물다. Order->Member 관계로 충분. 하지만, 이건 예제니까 양방향 연관관계를 보여주기 위해. */
+
+    @OneToMany(mappedBy = "member") // 반대편 Order 엔티티의 member 필드가 이 orders를 참조한다!
+    private List<Order> orders = new ArrayList<>();
 
     /** Getter는 만들면 편하고, Setter는 고민할 필요가 있다.
      * 아무데서나 값을 변경하게 하면 안되기 때문이다. 코드 추적에 불편하다.

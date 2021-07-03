@@ -2,6 +2,7 @@ package jpabook.jpashop;
 
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.domain.OrderItem;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -23,11 +24,18 @@ public class JpaMain {
 
         try{
 
+            Order order = new Order();
+            //order.addOrderItems(new OrderItem());
+            em.persist(order);
 
-            Order order = em.find(Order.class, 1L);
-            Long memberId = order.getMemberId();
+            OrderItem orderItem = new OrderItem();
+            orderItem.setOrder(order);
 
-            Member member = em.find(Member.class, memberId); // Order가 Member를 가지고 있어야 하지 않을까?
+            em.persist(orderItem);
+
+            /** 중요한건, 단방향 연관관계만 잘 해도 애플리케이션 개발에 크게 문제가 없다는 것이다!
+             개발 상의 편의 또는 특별히 조회가 필요한 경우에만 양방향 연관관계 설정이 필요하다.
+             JPQL을 복잡하게 짤 때 양방향 연관관계가 필요할 때도 있다.  */
 
             tx.commit(); // DB에 insert SQL 실행
         }catch(Exception e){
