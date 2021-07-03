@@ -11,9 +11,9 @@ public class Order {
     @Column(name="order_id")
     private Long id;
 
-    @Column(name="member_id")
-    private Long memberId; /** 이거 객체지향적 관점에서 어색하다. 관계형 DB에 있는 것을 그대로 가져온 모양.
-    private Member member; // 이래야 될 것 같다.  Order가 Member 객체를 가지고 있어야 자연스럽지 않나. */
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     private LocalDateTime orderDate; // DB에 timestamp 타입으로 매핑된다.
 
@@ -28,12 +28,12 @@ public class Order {
         this.id = id;
     }
 
-    public Long getMemberId() {
-        return memberId;
+    public Member getMember() {
+        return member;
     }
 
-    public void setMemberId(Long memberId) {
-        this.memberId = memberId;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     public LocalDateTime getOrderDate() {
